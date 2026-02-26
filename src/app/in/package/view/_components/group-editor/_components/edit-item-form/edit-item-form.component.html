@@ -1,8 +1,11 @@
 <app-popup-layout
+    [okButton]="true"
+    okButtonText="Save"
     (close)="dialogRef.close()"
+    (ok)="dialogRef.close(editingItem)"
 >
     <app-item-editor
-    [item]="data.item"
+    [item]="editingItem"
     [fields]="data.fields"
     [entity]="data.entity"
     [types]="types"

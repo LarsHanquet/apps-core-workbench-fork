@@ -81,7 +81,6 @@ class GroupEditorComponent implements OnInit,OnChanges {
   }
 
   editColumn(col:ViewColumn) {
-    this.matDialog.open(EditColComponent,{data:{col:col,entity:this.entity}})
     this.matDialog.open(EditColComponent,{data:{col:col,entity:this.entity}}).afterClosed().subscribe((result) => {
       if (result) {
         // Find and update the column in selected?.rows
@@ -98,11 +97,20 @@ class GroupEditorComponent implements OnInit,OnChanges {
   }
   
   editItem(item:ViewItem) {
-    this.matDialog.open(EditItemFormComponent,{
-      data:{item:item,entity:this.entity,fields:this.fields,groups:this.groups,action_controllers :this.action_controllers},
-      height:"40em",
-      width: "90em"
-    })
+    this.matDialog.open(EditItemFormComponent,{data:{item:item,entity:this.entity,fields:this.fields,groups:this.groups,action_controllers :this.action_controllers}}).afterClosed().subscribe((result) => {
+      if (result) {
+        // Find and update the item in selected?.rows
+        const index = this.selected?.rows.findIndex(row => row.columns.some(col => col.items.includes(item)));
+        if (index !== undefined && index >= 0) {
+          this.selected?.rows[index].columns.forEach(col => {
+            if (col.items.includes(item)) {
+              const itemIndex = col.items.indexOf(item);
+              col.items.splice(itemIndex, 1, result);
+            }
+          });
+        }
+      }
+    });
   }
 
   delItem(col:ViewColumn,item:ViewItem) {
