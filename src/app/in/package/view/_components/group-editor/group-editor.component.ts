@@ -52,7 +52,15 @@ class GroupEditorComponent implements OnInit,OnChanges {
   }
   
   editSection(el:ViewSection) {
-    this.matDialog.open(EditSectionComponent,{data:{section:el,entity:this.entity}})
+    this.matDialog.open(EditSectionComponent,{data:{section:el,entity:this.entity}}).afterClosed().subscribe((result) => {
+      if (result) {
+        // Find and update the section in group_obj
+        const index = this.group_obj.indexOf(el);
+        if (index >= 0) {
+          this.group_obj[index] = result;
+        }
+      }
+    });
   }
 
   addSection() {
