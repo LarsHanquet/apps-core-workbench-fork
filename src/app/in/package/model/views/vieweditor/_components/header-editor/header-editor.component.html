@@ -32,7 +32,7 @@
         <div *ngIf="obj.selection.default">
             <label>Default Actions</label>
             <div *ngFor="let act of obk(obj.selection.predef_actions)">
-                <label>{{act}}</label>
+                <label class="key-header-selection-actions">{{act}}</label>
                 <mat-checkbox [(ngModel)]="obj.selection.predef_actions[act].visible">visible</mat-checkbox>
             </div>
         </div>

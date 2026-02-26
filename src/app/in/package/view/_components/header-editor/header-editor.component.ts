@@ -22,6 +22,16 @@ export class HeaderEditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.updateSelectionActionVisibility();
   }
 
+  ngOnChanges() {
+    this.updateSelectionActionVisibility();
+  }
+
+  private updateSelectionActionVisibility() {
+    if (this.obj.selection && this.obj.selection.actions && this.obj.selection.actions.length > 0) {
+      this.header_selection_action_visible = true;
+    }
+  }
 }
