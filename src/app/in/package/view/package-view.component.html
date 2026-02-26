@@ -155,7 +155,7 @@
 
                         <button *ngIf="view_obj._has_filter" mat-mini-fab color="primary" class="addItem" (click)="addFilter()"><mat-icon>add</mat-icon></button>
 
-                        <div *ngIf="filter_visible && view_obj._has_filter" class="indent">
+                        <div *ngIf="(filter_visible || (view_obj._has_filter && view_obj.filters.length > 0)) && view_obj._has_filter" class="indent">
                             <div class="indent" *ngFor="let filter of view_obj.filters">
                                 <div class="flex">
                                     <div>
