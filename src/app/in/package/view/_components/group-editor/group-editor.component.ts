@@ -82,6 +82,15 @@ class GroupEditorComponent implements OnInit,OnChanges {
 
   editColumn(col:ViewColumn) {
     this.matDialog.open(EditColComponent,{data:{col:col,entity:this.entity}})
+    this.matDialog.open(EditColComponent,{data:{col:col,entity:this.entity}}).afterClosed().subscribe((result) => {
+      if (result) {
+        // Find and update the column in selected?.rows
+        const index = this.selected?.rows.findIndex(row => row.columns.includes(col));
+        if (index !== undefined && index >= 0) {
+          this.selected?.rows[index].columns.splice(this.selected?.rows[index].columns.indexOf(col),1,result)
+        }
+      }
+    });
   }
 
   addItem(col:ViewColumn) {
