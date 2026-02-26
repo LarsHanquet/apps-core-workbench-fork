@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { Field } from '../../_object/Field';
 import { WorkbenchService } from 'src/app/in/_services/workbench.service';
 
@@ -23,8 +22,6 @@ export class FieldEditorSpComponent implements OnInit {
   @Output() CRUD = new EventEmitter<string>()
   @Output() navToParent = new EventEmitter<void>()
 
-  nameEdit:boolean = false
-
   dependencyInput:string = ""
 
   ffields:string[] = []
@@ -33,10 +30,6 @@ export class FieldEditorSpComponent implements OnInit {
 
   typeDirective:{[id:string]:any}
   finalTypeDirective:{[id:string]:any}
-
-  nameControl = new FormControl("", {
-    validators: [snake_case, Validators.required, Validators.max(32)]
-  })
 
   constructor(
     private workbenchService:WorkbenchService
@@ -61,26 +54,11 @@ export class FieldEditorSpComponent implements OnInit {
       }
   }
 
-  public setNameBeingEdited(value: boolean) {
-    this.nameEdit = value
-    if (value) {
-      this.nameControl.setValue(this.field?.name)
-    } else {
-      this.nameControl.markAsUntouched()
-    }
-  }
-
-  get nameBeingEdited() {
-    return this.nameEdit
-  }
-
-  public changeName() {
-    if (this.field && this.nameControl.valid) {
+  public changeName(value: string) {
+    if (this.field && value && value.toLowerCase() === value && value.match(/^[a-z_][a-z0-9_]*$/)) {
       let oldname = this.field.name
-      this.field.name = this.nameControl.value
+      this.field.name = value
       this.CRUD.emit("Renaming "+oldname+" to "+this.field.name)
-      this.setNameBeingEdited(false)
-      this.nameControl.markAsUntouched()
     }
   }
 
@@ -331,13 +309,4 @@ export class FieldEditorSpComponent implements OnInit {
     this.navToParent.emit()
   }
 
-}
-
-function snake_case(control: AbstractControl): ValidationErrors | null {
-  let value: string = control.value
-  let valid_chars = "abcdefghijkmlnopqrstuvwxyz_"
-  for (let char of value) {
-    if (!valid_chars.includes(char)) return { "case": true }
-  }
-  return null
 }

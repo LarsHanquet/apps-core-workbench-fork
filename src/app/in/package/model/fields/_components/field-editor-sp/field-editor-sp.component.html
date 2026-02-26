@@ -3,20 +3,10 @@
 </div>
 <div *ngIf="field" class="sidepane">
     <div class="name-container">
-        <div>
-            <label>Field </label>
-            <ng-container *ngIf="!nameBeingEdited">
-                <label class="maincolor">{{field.name}}</label>
-                <button *ngIf="!inherited && !field.isUneditable" mat-icon-button color="primary" (click)="setNameBeingEdited(true)"><mat-icon>edit</mat-icon></button>
-            </ng-container>
-            <ng-container *ngIf="nameBeingEdited">
-                <mat-form-field class="editname">
-                    <input class="maincolor" matInput [formControl]="nameControl">
-                </mat-form-field>
-                <button mat-icon-button color="primary" (click)="setNameBeingEdited(false)"><mat-icon>cancel</mat-icon></button>
-                <button mat-icon-button color="primary" [disabled]="nameControl.invalid" (click)="changeName()"><mat-icon>save</mat-icon></button>
-            </ng-container>
-        </div>
+        <mat-form-field>
+            <mat-label>Field</mat-label>
+            <input matInput [disabled]="inherited || field.isUneditable" [value]="field.name" (keydown)="noCancel($event)" (change)="changeName($event.target.value)">
+        </mat-form-field>
     </div>
     <div class="bannerholder">
         <div *ngIf="field.isUneditable" class="infoBanner">
