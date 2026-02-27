@@ -1,5 +1,10 @@
-<button mat-button (click)="createRoute()"><mat-icon>add</mat-icon>New route</button>
+<div class="header"> 
+    <label>Edit routes</label>
+    <button mat-mini-fab color="primary" class="addItem" (click)="createRoute()"><mat-icon>add</mat-icon></button>
+</div>
+
 <div cdkDropList [cdkDropListData]="obj" (cdkDropListDropped)="drop($event)" cdkDropListOrientation="vertical">
+    <label *ngIf="obj.length === 0" class="info">No custom route bound.</label>
     <app-route-edit
         *ngFor="let route of obj ; index as i"
         cdkDrag
