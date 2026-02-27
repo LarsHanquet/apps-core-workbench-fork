@@ -22,13 +22,13 @@
             [customButtonList]="[{name:'Show JSON', icon:'bug_report', disabled: false}]"
             (onCustomButton)="handleCustomButton($event)">
         <label class="packagename names">{{node.package_name}}</label>
-        <label style="margin: 0 5px;">›</label>
+        <label class="header-divider">›</label>
         <label [class.controllername]="view_obj.type === 'search'" [class.classname]="view_obj.type !== 'search'" class="names">{{node.item.model}}</label>
-        <label style="margin: 0 5px;">›</label>
+        <label class="header-divider">›</label>
         <label class="viewname names">{{node.name.split(":")[1]}}</label>
     </app-inner-header>
     <div class="feature-container">
-        <label *ngIf="!idCompliancy.ok" [style.color]="'red'">ERROR : {{ (idDoublons.length > 0) ? "Some IDs are duplicated ("+idDoublons+")" : "Some items don't have an ID"}}</label>
+        <label *ngIf="!idCompliancy.ok" class="error-message">ERROR : {{ (idDoublons.length > 0) ? "Some IDs are duplicated ("+idDoublons+")" : "Some items don't have an ID"}}</label>
         <div class="name">
             <mat-form-field class="inputlong">
                 <input matInput placeholder="view name" [value]="view_obj.name"  (input)="view_obj.name = $event.target.value">
@@ -58,8 +58,8 @@
                             <button mat-mini-fab color="primary" class="addItem" (click)="addGroup()"><mat-icon>add</mat-icon></button>
                         </div>
 
-                        <div *ngFor="let group of view_obj.layout.groups" style="margin-bottom: 24px;">
-                            <div style="display: flex; align-items: center; gap: 12px;">
+                        <div *ngFor="let group of view_obj.layout.groups" class="group-spacing">
+                            <div class="group-header">
                                 <mat-form-field>
                                     <input matInput placeholder="Group name" [value]="group.label==='' ? 'UNNAMED' : group.label" (change)="group.label = $event.target.value==='UNNAMED' ? '' : $event.target.value">
                                 </mat-form-field>
@@ -135,11 +135,13 @@
                         <label>Header</label>
                     </ng-template>
                     <div class="tab-item indent">
-                        <mat-slide-toggle [(ngModel)]="view_obj._has_header"></mat-slide-toggle>
-                        <label [style.opacity]="view_obj._has_header ? 1 : 0.6" class="category-title maincolor">Header </label>
+                        <div class="toggle-container">
+                            <mat-slide-toggle [(ngModel)]="view_obj._has_header"></mat-slide-toggle>
+                            <label [class.toggle-label]="!view_obj._has_header" [style.opacity]="view_obj._has_header ? 1 : 0.6" class="category-title maincolor">Header</label>
+                        </div>
 
                         <!--HEADER-->
-                        <div *ngIf="view_obj._has_header" class="indent">
+                        <div *ngIf="view_obj._has_header" class="indent group-spacing">
                             <app-header-editor
                                 [obj]="view_obj.header"
                                 [type]="view_obj.type"
@@ -150,15 +152,20 @@
                             </app-header-editor>
                         </div>
                         <!--------->
-                        <mat-slide-toggle [(ngModel)]="view_obj._has_filter"></mat-slide-toggle>
-                        <label [style.opacity]="view_obj._has_filter ? 1 : 0.6" class="category-title maincolor">Filters </label>
+                        <div class="toggle-container">
+                            <mat-slide-toggle [(ngModel)]="view_obj._has_filter"></mat-slide-toggle>
+                            <label [style.opacity]="view_obj._has_filter ? 1 : 0.6" class="category-title maincolor">Filters </label>
+                        </div>
 
-                        <button *ngIf="view_obj._has_filter" mat-mini-fab color="primary" class="addItem" (click)="addFilter()"><mat-icon>add</mat-icon></button>
+                        <div *ngIf="view_obj._has_filter" class="filters-header"> 
+                            <label>Edit filters</label>
+                            <button mat-mini-fab color="primary" class="addItem" (click)="addFilter()"><mat-icon>add</mat-icon></button>
+                        </div>
 
                         <div *ngIf="(filter_visible || (view_obj._has_filter && view_obj.filters.length > 0)) && view_obj._has_filter" class="indent">
                             <div class="indent" *ngFor="let filter of view_obj.filters">
-                                <div class="flex">
-                                    <div>
+                                <div class="filter-field-row">
+                                    <div class="filter-inputs">
                                         <div>
                                             <mat-form-field>
                                                 <input matInput placeholder="filter id" [value]="filter.id" (input)="filter.id = $event.target.value">
@@ -170,14 +177,14 @@
                                                 <input matInput placeholder="filter description" [value]="filter.description" (input)="filter.description = $event.target.value">
                                             </mat-form-field>
                                         </div>
-                                        <app-clause-domain-component
+                                        <app-clause-domain-component class="filters-info"
                                             [value]="filter.clause.arr"
                                             [name]="'oui'"
                                             [class]="entity"
                                             (valueChange)="filter.clause.arr = $event"
                                         ></app-clause-domain-component>
                                     </div>
-                                    <div class="delete-button-container">
+                                    <div class="filter-delete-container">
                                         <button mat-mini-fab color="primary" (click)="deleteFilter(view_obj.filters.indexOf(filter))"><mat-icon>delete</mat-icon></button>
                                     </div>
                                 </div>
@@ -284,7 +291,7 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
                                 <div>
-                                    <mat-form-field style="margin-left: 10px;">
+                                    <mat-form-field class="sort-field">
                                         <mat-label>Order</mat-label>
                                         <mat-select [(value)]="view_obj.order">
                                             <mat-option value=''></mat-option>
@@ -292,7 +299,7 @@
                                             <mat-option value='desc'>desc</mat-option>
                                         </mat-select>
                                     </mat-form-field>
-                                    <mat-form-field style="margin-left: 10px;" *ngIf="view_obj">
+                                    <mat-form-field class="sort-field" *ngIf="view_obj">
                                         <mat-label>sort</mat-label>
                                         <mat-select [(value)]="view_obj.sort">
                                             <mat-option value=''></mat-option>
@@ -320,7 +327,7 @@
                                 </mat-expansion-panel-header>
                                 <div>
                                     <button mat-button color="primary" (click)="addNewGroupBy()"><mat-icon>add</mat-icon> Group</button>
-                                    <div [class.tree]="index !== 0" [style.margin-left]="index*2+'em'"  [style.width]="'calc(100% - '+index*2+'em)'" style="display: flex; align-items: center; justify-content: space-between;" *ngFor="let item of view_obj.groupBy.items; index as index">
+                                    <div [class.tree]="index !== 0" [style.margin-left]="index*2+'em'"  [style.width]="'calc(100% - '+index*2+'em)'" class="tree-item" *ngFor="let item of view_obj.groupBy.items; index as index">
                                         <div>
                                             <mat-form-field>
                                                 <mat-label>field</mat-label>
@@ -328,7 +335,7 @@
                                                     <mat-option *ngFor="let field of fields" [value]="field">{{field}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
-                                            <mat-form-field style="margin-left: .5em;">
+                                            <mat-form-field class="operation-field">
                                                 <mat-label>Field</mat-label>
                                                 <mat-select [(value)]="item.operation.operator">
                                                     <mat-option value=""></mat-option>
@@ -437,9 +444,7 @@
                                 </div>
                             </mat-expansion-panel>
                         </mat-accordion>
-                        <div style="height : 1em">
-
-                        </div>
+                        <div class="margin-spacer"></div>
                     </div>
                 </mat-tab>
             </ng-container>

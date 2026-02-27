@@ -103,11 +103,11 @@
     }
 
     .cdk-drag-placeholder {
-    opacity: 0;
+        opacity: 0;
     }
 
     .cdk-drag-animating {
-    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
     }
 
     .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
@@ -117,7 +117,6 @@
     .grabable {
         cursor: grab;
     }
-
 
     .inputlong {
         width: 20em;
@@ -134,7 +133,6 @@
     }
 
     .tab-group {
-
         height: calc(100% - 65px);
         margin-top: 24px;
 
@@ -143,9 +141,7 @@
             .section-add-btn {
                 transform: scale(0.7);
             }
-
         }
-
     }
 
     .name {
@@ -207,4 +203,92 @@
             height:35px;
         }
     }
+
+    /* Toggle and header styling */
+    .toggle-container {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+
+    .toggle-label {
+        &[data-disabled="true"] {
+            opacity: 0.6;
+        }
+    }
+
+    .header-divider {
+        margin: 0 5px;
+    }
+
+    .filter-field-row {
+        display: flex;
+        gap: 12px;
+    }
+
+    .filter-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .filter-delete-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .group-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .operation-field {
+        margin-left: 10px;
+    }
+
+    .tree-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        &:not(:first-child) {
+            border-left: 1.5px solid $border;
+        }
+    }
+
+    .group-spacing {
+        margin-bottom: 24px;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    .sort-field {
+        margin-left: 10px;
+    }
+
+    .margin-spacer {
+        height: 1em;
+    }
+}
+
+.filters-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+
+    .addItem {
+        margin-left: 1em;
+    }
+}
+
+.filters-info {
+    font-style: italic;
+    opacity: 0.7;
+    margin-top: 1em;
 }
