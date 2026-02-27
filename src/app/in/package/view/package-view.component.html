@@ -198,9 +198,10 @@
                         <label>Actions</label>
                     </ng-template>
                     <div class="tab-item indent">
-                        <mat-slide-toggle [(ngModel)]="view_obj._has_actions"></mat-slide-toggle>
-                        <label [style.opacity]="view_obj._has_actions ? 1 : 0.6" class="category-title maincolor">Actions </label>
-
+                        <div class="toggle-container">
+                            <mat-slide-toggle [(ngModel)]="view_obj._has_actions"></mat-slide-toggle>
+                            <label [style.opacity]="view_obj._has_actions ? 1 : 0.6" class="category-title maincolor">Actions </label>
+                        </div>
                         <div *ngIf="view_obj._has_actions" class="indent">
                             <app-actions-container
                                 [label]="'Edit actions'"
@@ -219,10 +220,11 @@
                         <label>Routes</label>
                     </ng-template>
                     <div class="tab-item indent">
-                        <mat-slide-toggle [(ngModel)]="view_obj._has_routes"></mat-slide-toggle>
-                        <label [style.opacity]="view_obj._has_routes ? 1 : 0.6" 
-                            class="category-title maincolor">Routes </label>
-
+                        <div class="toggle-container">
+                            <mat-slide-toggle [(ngModel)]="view_obj._has_routes"></mat-slide-toggle>
+                            <label [style.opacity]="view_obj._has_routes ? 1 : 0.6" 
+                                class="category-title maincolor">Routes </label>
+                        </div>
                         <div *ngIf="view_obj._has_routes" class="indent">
                             <app-route-editor
                                 [obj]="view_obj.routes"
@@ -245,9 +247,10 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                        <mat-slide-toggle [(ngModel)]="view_obj._has_access"></mat-slide-toggle>
-                        <label [style.opacity]="view_obj._has_access ? 1 : 0.6" class="category-title maincolor">Access </label>
-
+                        <div class="toggle-container">
+                            <mat-slide-toggle [(ngModel)]="view_obj._has_access"></mat-slide-toggle>
+                            <label [style.opacity]="view_obj._has_access ? 1 : 0.6" class="category-title maincolor">Access </label>
+                        </div>
                         <div class="indent" *ngIf="view_obj._has_access">
                             <editor-access
                                 [obj]="view_obj.access"
