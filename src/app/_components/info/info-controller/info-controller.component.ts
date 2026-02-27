@@ -103,7 +103,7 @@ export class InfoControllerComponent implements OnInit, OnChanges {
         }
         this.loading = true;
         try {
-            const operation_name = this.controller.package_name + '_' + this.controller.name;
+            const operation_name = this.controller.name;
             const response = await this.workbenchService.announceController(this.controller.type, operation_name).toPromise();
             this.announcement = response?.announcement;
             this.schema = this.announcement?.params ?? {};
