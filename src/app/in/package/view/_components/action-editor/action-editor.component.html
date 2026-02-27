@@ -40,9 +40,12 @@
     <mat-checkbox [(ngModel)]="obj._has_access" (ngModelChange)="changeBigDispBy(obj._has_access)">restrict access</mat-checkbox>
     <mat-checkbox *ngIf="obj._domainable" [(ngModel)]="obj._has_domain">visibility</mat-checkbox>
 
-    <button mat-button (click)="show_custom_params()"><mat-icon>settings</mat-icon>params</button>
-
-    <button mat-icon-button (click)="deleteme()"><mat-icon>delete</mat-icon></button>
+    <div class="btn">
+        <button mat-mini-fab color="primary" (click)="show_custom_params()"><mat-icon>settings</mat-icon></button>
+    </div>
+    <div class="btn">
+        <button mat-mini-fab color="primary" (click)="deleteme()"><mat-icon>delete</mat-icon></button>
+    </div>
 
     <!-- CONDITIONAL DISP PART --->
     <div *ngIf="big_disp">
