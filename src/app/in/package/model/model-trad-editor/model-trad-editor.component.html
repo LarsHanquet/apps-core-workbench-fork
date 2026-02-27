@@ -36,17 +36,17 @@
                 <!-- Sélection / création de langue -->
         <div class="lang-selection" *ngIf="!addingLanguage && obk(data).length > 0">
             <div class="info-left">
-            <mat-form-field appearance="outline">
-                <mat-label>Translation language</mat-label>
-                <mat-select [(value)]="lang">
-                <mat-option *ngFor="let lg of obk(data)" [value]="lg">
-                    {{ lg }}
-                </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-flat-button color="primary" (click)="startAddingLanguage()">
-                <mat-icon>add</mat-icon> Add language
-            </button>
+              <mat-form-field appearance="outline">
+                  <mat-label>Translated language</mat-label>
+                  <mat-select [(value)]="lang">
+                  <mat-option *ngFor="let lg of obk(data)" [value]="lg">
+                      {{ lg }}
+                  </mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <button mat-flat-button color="primary" class="btn-margin" (click)="startAddingLanguage()">
+                  <mat-icon>add</mat-icon> Add language
+              </button>
             </div>
         </div>
 
@@ -95,7 +95,7 @@
               <!-- Traduction des champs du modèle -->
               <div *ngIf="entitype !== 'menu'" class="model-items">
                 <mat-grid-list cols="16" rowHeight="2em" gutterSize="8px">
-                  <mat-grid-tile class="header-tile">Translation</mat-grid-tile>
+                  <mat-grid-tile class="header-tile">Translated</mat-grid-tile>
                   <mat-grid-tile class="header-tile" colspan="2">Field</mat-grid-tile>
                   <mat-grid-tile class="header-tile" colspan="3">Label</mat-grid-tile>
                   <mat-grid-tile class="header-tile" colspan="5">Description</mat-grid-tile>
@@ -158,9 +158,9 @@
                       <mat-tab label="Layout" *ngIf="obk(data[lang].view[view].layout).length > 0">
                         <div class="tab-content">
                           <mat-grid-list cols="16" rowHeight="2em" gutterSize="8px">
-                            <mat-grid-tile>Translation</mat-grid-tile>
-                            <mat-grid-tile colspan="2">Field</mat-grid-tile>
-                            <mat-grid-tile colspan="13">Label</mat-grid-tile>
+                            <mat-grid-tile class="header-tile">Translated</mat-grid-tile>
+                            <mat-grid-tile colspan="2" class="header-tile">Field</mat-grid-tile>
+                            <mat-grid-tile colspan="13" class="header-tile">Label</mat-grid-tile>
                           </mat-grid-list>
                           <mat-grid-list *ngFor="let key of obk(data[lang].view[view].layout)" cols="16" rowHeight="2em" gutterSize="8px">
                             <mat-grid-tile colspan="1">
@@ -187,10 +187,10 @@
                       <mat-tab label="Actions" *ngIf="obk(data[lang].view[view].actions).length > 0">
                         <div class="tab-content">
                           <mat-grid-list cols="16" rowHeight="2em" gutterSize="8px">
-                            <mat-grid-tile>Translation</mat-grid-tile>
-                            <mat-grid-tile colspan="2">Field</mat-grid-tile>
-                            <mat-grid-tile colspan="5">Label</mat-grid-tile>
-                            <mat-grid-tile colspan="8">Description</mat-grid-tile>
+                            <mat-grid-tile class="header-tile">Translated</mat-grid-tile>
+                            <mat-grid-tile colspan="2" class="header-tile">Field</mat-grid-tile>
+                            <mat-grid-tile colspan="5" class="header-tile">Label</mat-grid-tile>
+                            <mat-grid-tile colspan="8" class="header-tile">Description</mat-grid-tile>
                           </mat-grid-list>
                           <mat-grid-list *ngFor="let key of obk(data[lang].view[view].actions)" cols="16" rowHeight="2em" gutterSize="8px">
                             <mat-grid-tile colspan="1">
@@ -220,10 +220,10 @@
                       <mat-tab label="Routes" *ngIf="obk(data[lang].view[view].routes).length > 0">
                         <div class="tab-content">
                           <mat-grid-list cols="16" rowHeight="2em" gutterSize="8px">
-                            <mat-grid-tile>Translation</mat-grid-tile>
-                            <mat-grid-tile colspan="2">Field</mat-grid-tile>
-                            <mat-grid-tile colspan="5">Label</mat-grid-tile>
-                            <mat-grid-tile colspan="8">Description</mat-grid-tile>
+                            <mat-grid-tile class="header-tile">Translated</mat-grid-tile>
+                            <mat-grid-tile colspan="2" class="header-tile">Field</mat-grid-tile>
+                            <mat-grid-tile colspan="5" class="header-tile">Label</mat-grid-tile>
+                            <mat-grid-tile colspan="8" class="header-tile">Description</mat-grid-tile>
                           </mat-grid-list>
                           <mat-grid-list *ngFor="let key of obk(data[lang].view[view].routes)" cols="16" rowHeight="2em" gutterSize="8px">
                             <mat-grid-tile colspan="1">
@@ -277,9 +277,9 @@
                   </mat-form-field>
                   <div class="error-list">
                     <mat-grid-list cols="16" rowHeight="2em" gutterSize="8px">
-                      <mat-grid-tile>Translation</mat-grid-tile>
-                      <mat-grid-tile colspan="2">Field</mat-grid-tile>
-                      <mat-grid-tile colspan="13">Label</mat-grid-tile>
+                      <mat-grid-tile class="header-tile">Translated</mat-grid-tile>
+                      <mat-grid-tile colspan="2" class="header-tile">Field</mat-grid-tile>
+                      <mat-grid-tile colspan="13" class="header-tile">Label</mat-grid-tile>
                     </mat-grid-list>
                     <mat-grid-list *ngFor="let key of obk(data[lang].error._base[errType].val)" cols="16" rowHeight="2em" gutterSize="8px">
                       <mat-grid-tile colspan="1">
