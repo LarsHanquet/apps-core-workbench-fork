@@ -1,6 +1,10 @@
 <div *ngFor="let key of obk(h_scheme.actions)" class="action-section">
     <div class="action-header">
         <label class="action-title" [class.disabled]="!h_scheme.actions[key].enabled">{{key}}</label>
+        <div class="info-message" *ngIf="h_scheme.actions[key].enabled && h_scheme.actions[key].acts.length === 0">
+            <mat-icon>info</mat-icon>
+            <label>Default behavior will be used</label>
+        </div>
         <mat-checkbox 
             class="force-disable-checkbox" 
             [checked]="!h_scheme.actions[key].enabled" 
@@ -27,8 +31,5 @@
         </div>
     </div>
     
-    <div class="info-message" *ngIf="h_scheme.actions[key].enabled && h_scheme.actions[key].acts.length === 0">
-        <mat-icon>info</mat-icon>
-        <label>Default behavior will be used</label>
-    </div>
+
 </div>
