@@ -5,7 +5,7 @@
         (toggle)="header_action_visible = $event"
         [disabled]="!obj._has_actions">
 </app-toggling-button>
-<mat-slide-toggle [(ngModel)]="obj._has_actions"></mat-slide-toggle>
+<mat-slide-toggle [(ngModel)]="obj._has_actions" (change)="header_action_visible = true"></mat-slide-toggle>
 <label [style.opacity]="obj._has_actions ? 1 : 0.6" class="category-title maincolor">Actions </label>
 
 <div *ngIf="header_action_visible && obj._has_actions" class="indent">
