@@ -129,13 +129,17 @@ export class SearchControllersListComponent implements OnInit, OnChanges, OnDest
     }
 
     /**
-     * Emits the event to select a node.
+     * Emits the event to select a node. If the node is already selected, it will deselect it.
      *
-     * @param node - The node to be selected.
+     * @param node - The node to be selected or deselected.
      * @returns void
      */
     onclickNodeSelect(node: EqualComponentDescriptor): void {
-        this.selectNode.emit(node);
+        if (this.selected_node && this.selected_node.name === node.name && this.selected_node.type === node.type) {
+            this.selectNode.emit(undefined);
+        } else {
+            this.selectNode.emit(node);
+        }
     }
 
     /**
