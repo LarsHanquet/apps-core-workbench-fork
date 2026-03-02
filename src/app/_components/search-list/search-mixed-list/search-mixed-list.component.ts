@@ -104,7 +104,10 @@ export class SearchMixedListComponent implements OnInit, OnDestroy {
         this.loadNodesV2();
     }
 
-    public async ngOnChanges(changes: SimpleChanges) {
+    public ngOnChanges(changes: SimpleChanges) {
+        if (changes['node_selected']) {
+            console.log('node_selected changed to:', changes['node_selected'].currentValue);
+        }
         if (changes.node_type && this.node_type) {
             this.selectSearchScope();
         }
@@ -330,7 +333,7 @@ export class SearchMixedListComponent implements OnInit, OnDestroy {
         this.onSearch();
     }
 
-    public areNodesEqual(node1: EqualComponentDescriptor, node2: EqualComponentDescriptor) {
+    public areNodesEqual(node1?: EqualComponentDescriptor, node2?: EqualComponentDescriptor) {
         // console.log('comparing', node1, node2);
         return (node1?.package_name === node2?.package_name &&
             node1?.name === node2?.name &&
@@ -407,8 +410,17 @@ export class SearchMixedListComponent implements OnInit, OnDestroy {
      * @param node value of the node which is clicked on
      */
     public onclickSelect(node: EqualComponentDescriptor) {
-        //this.router.navigate(['/package', node.name]);
+        console.log('onclickSelect called with node:', node);
+        console.log('Current node_selected:', this.node_selected);
+        console.log('Are they equal?', this.areNodesEqual(this.node_selected, node));
+        if (this.node_selected && this.areNodesEqual(this.node_selected, node)) {
+            console.log('Node is already selected, deselecting.');
+            this.node_selected = undefined;
+            this.selectNode.emit(undefined);
+        } else {
+        this.node_selected = node;
         this.selectNode.emit(node);
+        }
     }
 
     /**

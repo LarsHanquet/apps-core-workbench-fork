@@ -69,8 +69,8 @@
 -->
         <ng-template #displayMode>
             <div class="node_display"
-                    [class.hover]="node_selected != node"
-                    [class.selected]="node_selected === node"
+                    [class.hover]="!areNodesEqual(node_selected, node)"
+                    [class.selected]="areNodesEqual(node_selected, node)"
                     [title]="getTitle(node)"
                     >
                 <div class="inner" (click)="onclickSelect(node)">
